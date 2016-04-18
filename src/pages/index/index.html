@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>astro-首页</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link rel="stylesheet" href="./css/p/index.css?v="/>
-        <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon" />
-    </head>
-    <body>
-    	<div id="astro-wrap" class="g-main">
-			
+<module:layout/doc>
 	<div class="top-wrap">
 		<div class="header section">
 			<h1 class="logo"></h1>
@@ -29,16 +19,16 @@
 	</div>
 	<div class="section">
 		<ul class="index-map">
-			<li><a href="#"><span><img src="./img/nav-01.jpg" alt=""></span>模块化开发</a></li>
-			<li><a href="#"><span><img src="./img/nav-02.jpg" alt=""></span>图片处理</a></li>
-			<li><a href="#"><span><img src="./img/nav-03.jpg" alt=""></span>资源引用</a></li>
-			<li><a href="#"><span><img src="./img/nav-04.jpg" alt=""></span>扩展性</a></li>
-			<li><a href="#"><span><img src="./img/nav-05.jpg" alt=""></span>一键发布</a></li>
+			<li><a href="#"><span><img src="$res(~/img/nav-01.jpg)" alt=""></span>模块化开发</a></li>
+			<li><a href="#"><span><img src="$res(~/img/nav-02.jpg)" alt=""></span>图片处理</a></li>
+			<li><a href="#"><span><img src="$res(~/img/nav-03.jpg)" alt=""></span>资源引用</a></li>
+			<li><a href="#"><span><img src="$res(~/img/nav-04.jpg)" alt=""></span>扩展性</a></li>
+			<li><a href="#"><span><img src="$res(~/img/nav-05.jpg)" alt=""></span>一键发布</a></li>
 		</ul>
 	</div>
 	<div class="section01">
 		<div class="section">
-			<img src="./img/module01.jpg" alt="">
+			<img src="$res(~/img/module01.jpg)" alt="">
 			<div class="code">
 				<code></code>
 			</div>
@@ -77,11 +67,11 @@
 				</ul>
 				<ul class="img-lst">
 					<li>
-						<img src="./img/img1.jpg" alt="">
+						<img src="$res(~/img/img1.jpg)" alt="">
 						<p>普通图片</p>
 					</li>
 					<li>
-						<img src="./img/img2.jpg" alt="">
+						<img src="$res(~/img/img2.jpg)" alt="">
 						<p>增加交错属性后</p>
 					</li>
 				</ul>
@@ -90,7 +80,7 @@
 	</div>
 	<div class="section03">
 		<div class="section">
-			<img src="./img/module02.png" alt="">
+			<img src="$res(~/img/module02.png)" alt="">
 			<div class="code">
 				<code></code>
 				<code></code>
@@ -109,12 +99,12 @@
 				<dt>一行命令完成发布，自动化流程也很简单</dt>
 				<dd>开发过程中，不仅没有各种维护依赖关系、引用路径的纷扰，发布也可以一键无忧。<br>通过一行命令，就可完成发布、打包，期间自动对图片、JS、CSS进行压缩。在Linux中，通过和sh命令结合，可完美实现发布、打包、上线的自动化提测/上线流程。</dd>
 			</dl>
-			<img src="./img/module03.jpg" alt="">
+			<img src="$res(~/img/module03.jpg)" alt="">
 		</div>
 	</div>
 	<div class="section05">
 		<div class="section">
-			<img src="./img/module04.png" alt="">
+			<img src="$res(~/img/module04.png)" alt="">
 			<dl class="section-inner">
 				<dt>如果Astro还不能满足你，那么...</dt>
 				<dd>Astro不仅提供了丰富、便利的内置功能。同时通过对开发流程进行整理，把资源的请求过程抽象为请求资源——分析请求——读取资源文件——解析资源文件——返回请求内容几个步骤，并在各个环节开放了诸多接口。<br>
@@ -125,7 +115,4 @@
 	<div class="section06">
 			<a href="#" class="m-btn btn-define-l">立即开始</a>
 	</div>
-
-        </div>
-    </body>
-</html>
+</module>
