@@ -116,13 +116,17 @@ input.btn-define-l,a.btn-define-l{
 	background: url("~/img/section-bg01.jpg") repeat left top;
 }
 .code{
-	width:260px;
+	width:450px;
 	margin:0 30px;
 	code{
 		display:block;
 		padding:15px;
-		background-color:#000;		
+		background-color:#fff;
 	}
+}
+body pre.prettyprint{
+    padding: 0;
+    border: none;
 }
 .section-inner{
 	#display .flex(1);
@@ -249,4 +253,23 @@ input.btn-define-l,a.btn-define-l{
 .section06{
 	background: url("~/img/section-bg04.jpg") repeat left top;
 	text-align:center;
+}
+
+
+.terminal{
+    background-color: #181818;
+    display: inline-block;
+    width: 576px;
+    color: #00fd00;
+    height: 400px;
+    overflow-y: auto;
+    .log{
+        color: #828282;
+    }
+    .info{
+        color: #00b900;
+    }
+    .warn{
+        color: #acae05;
+    }
 }

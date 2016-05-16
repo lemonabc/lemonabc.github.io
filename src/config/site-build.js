@@ -12,14 +12,14 @@ module.exports = {
     // 页面存储路径
     // page: require('path').join(__dirname, '..', 'pages'),
     // 接口代理
-    /*proxy: {
+    proxy: {
         '/aj': {
             hostname: 'www.baidu.com',
             port: 80,
             url: '/',
             headers: {}
         }
-    },*/
+    },
     // 是否自动启用静态资源服务器
     autoAssets: false,
     // 模板全局属性
