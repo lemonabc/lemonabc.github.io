@@ -25,6 +25,7 @@ module.exports = {
     // 模板全局属性
     globalVariables: {
         cdn: '.',
+        cdn_rel: '..',
         // 静态资源版本号
         ver: function() {
             return Date.now;
