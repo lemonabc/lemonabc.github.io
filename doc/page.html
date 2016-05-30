@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>模块化-Astros文档</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" href="./css/p/doc-start.css?v="/>
+        <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon" />
+        <!-- <link rel="stylesheet" href="./css/prettify-tomorrow.css"> -->
+    </head>
+    <body>
+    	<div id="astro-wrap" class="g-main">
+			<div class="header">
+    <div class="section">
+        <h1 class="logo"></h1>
+        <ul class="nav">
+            <li><a class="" href="/">首页</a></li>
+            <li><a class="active" href="/doc/start">文档</a></li>
+            <li><a class="" href="#">中间件列表</a></li>
+            <li><a href="https://github.com/lemonabc/astros/issues">问题</a></li>
+        </ul>
+    </div>
+</div>
+            <section class="section">
+                <!-- 文档左侧菜单 -->
+<div class="side-menu doc-menu">
+    <dl>
+        <dt><a class=""  href="start">快速开始</a></dt>
+    </dl>
+    <dl>
+        <dt>使用指南</dt>
+        <dd>
+            <a class="on" href="page">创建页面</a></dd>
+        <dd>
+            <a class="" href="mod">模块化</a></dd>
+        <dd>
+            <a class="" href="res-ref">资源引用</a>
+        </dd>
+        <dd>
+            <a class="" href="image">图片处理</a>
+        </dd>
+        <dd>
+            <a class="" href="font">SVG转字体</a>
+        </dd>
+    </dl>
+    <dl>
+        <dt>开发文档</dt>
+        <dd>
+            <a class="" href="astros">Astros对象</a>
+        </dd>
+        <dd>
+            <a class="" href="asset">Asset对象</a>
+        </dd>
+        <dd>
+        <a class="" href="middleware">开发中间件</a>
+        </dd>
+        <dd>
+            <a class="" href="release">发布</a>
+        </dd>        
+    </dl>
+</div>
+                <div class="doc-wrap">
+                    
+<h2 id="toc_0">创建路由</h2>
+
+<p>Astro是基于Express实现的，要访问一个页面，同Express一样，需要建立一个路由。Astro的路由默认存储在<code>routes</code>目录，语法和Express一样，Astro会自动遍历<code>routes</code>目录下的所有文件，并挂载之。以127.0.0.1:3100/user/login为例：</p>
+
+<div><pre><code class="language-none">root[dir]
+    routes[dir]
+        user[dir]   不要问为什么多了一级目录，我们是支持多级的。
+            login.js</code></pre></div>
+
+<p><strong>loign.js</strong></p>
+
+<div><pre><code class="language-none">var router = require(&#39;express&#39;).Router(); // 新建一个 router
+router.get(&#39;user/login&#39;, function(req, res) {
+    res.render(&#39;user/login&#39;, {
+        title:&#39;登录&#39;
+    }, function(err, html){
+        res.set(&#39;Content-Type&#39;, &#39;text/html&#39;);
+        res.end(html)
+    });
+});
+
+module.exports = router</code></pre></div>
+
+<h2 id="toc_1">建立对应的模板</h2>
+
+<p>上面的路由引用了<code>login</code>模板（就是这一句：<code>res.render(&#39;user/login&#39;, ...</code>)，Astro的模板默认存储在<code>pages</code>目录。所以，建立模板吧。</p>
+
+<div><pre><code class="language-none">root[dir]
+    pages[dir]
+        user[dir]
+            login[dir]
+                login.html
+                login.less
+                login.js
+                img[dir] </code></pre></div>
+
+<p><code>root/pages/user/login/login.html</code></p>
+
+<div><pre><code class="language-none">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;模块化-Astro&lt;/title&gt;
+        &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot; /&gt;
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;./css/p/doc-page.css?v=&quot;/&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div id=&quot;astro-wrap&quot; class=&quot;g-main&quot;&gt;
+            &lt;div id=&quot;bd&quot; class=&quot;g-wrap&quot;&gt;
+                &lt;form&gt;
+                    &lt;div class=&quot;form-item&quot;&gt;
+                        &lt;input placeholder=&quot;用户名&quot; /&gt;
+                    &lt;/div&gt;
+                    &lt;div class=&quot;form-item&quot;&gt;
+                        &lt;input placeholder=&quot;密码&quot; type=&quot;password&quot; /&gt;
+                    &lt;/div&gt;
+                    &lt;div class=&quot;form-submit&quot;&gt;
+                        &lt;button&gt;提交&lt;/button&gt;
+                    &lt;/div&gt;
+                &lt;/form&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;script src=&quot;./js/p/doc-page.js?v=&quot;&gt;
+&lt;/html&gt;</code></pre></div>
+
+<p>也许你已经注意到了，引用页面的JS和CSS分别通过：</p>
+
+<div><pre><code class="language-none">&lt;script src=&quot;http://127.0.0.1:3101/js/p/login.js&quot;&gt;&lt;/script&gt;
+
+&lt;link rel=&quot;stylesheet&quot; href=&quot;http://127.0.0.1:3101/css/p/login.css&quot; /&gt;</code></pre></div>
+
+<p>引用</p>
+
+<p><code>.</code>默认是访问的IP+静态资源服务器端口，如果通过访问 <code>127.0.0.1:3100/user/login</code>，资源引用路径会使用用127.0.0.1:3101，如果通过访问 <code>192.168.1.2:3100/user/login</code>，资源引用路径会使用用 192.168.1.2:3101</p>
+
+<div><pre><code class="language-none">你也可以通过 static.js 的 globalVariables.cdn 手动配置</code></pre></div>
+
+                </div>
+            </section>
+            <!-- <script src="./js/prettify.js"></script> -->
+        </div>
+    </body>
+</html>

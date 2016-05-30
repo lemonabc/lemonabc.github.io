@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>模块化-Astros文档</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" href="./css/p/doc-start.css?v="/>
+        <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon" />
+        <!-- <link rel="stylesheet" href="./css/prettify-tomorrow.css"> -->
+    </head>
+    <body>
+    	<div id="astro-wrap" class="g-main">
+			<div class="header">
+    <div class="section">
+        <h1 class="logo"></h1>
+        <ul class="nav">
+            <li><a class="" href="/">首页</a></li>
+            <li><a class="active" href="/doc/start">文档</a></li>
+            <li><a class="" href="#">中间件列表</a></li>
+            <li><a href="https://github.com/lemonabc/astros/issues">问题</a></li>
+        </ul>
+    </div>
+</div>
+            <section class="section">
+                <!-- 文档左侧菜单 -->
+<div class="side-menu doc-menu">
+    <dl>
+        <dt><a class=""  href="start">快速开始</a></dt>
+    </dl>
+    <dl>
+        <dt>使用指南</dt>
+        <dd>
+            <a class="" href="page">创建页面</a></dd>
+        <dd>
+            <a class="on" href="mod">模块化</a></dd>
+        <dd>
+            <a class="" href="res-ref">资源引用</a>
+        </dd>
+        <dd>
+            <a class="" href="image">图片处理</a>
+        </dd>
+        <dd>
+            <a class="" href="font">SVG转字体</a>
+        </dd>
+    </dl>
+    <dl>
+        <dt>开发文档</dt>
+        <dd>
+            <a class="" href="astros">Astros对象</a>
+        </dd>
+        <dd>
+            <a class="" href="asset">Asset对象</a>
+        </dd>
+        <dd>
+        <a class="" href="middleware">开发中间件</a>
+        </dd>
+        <dd>
+            <a class="" href="release">发布</a>
+        </dd>        
+    </dl>
+</div>
+                <div class="doc-wrap">
+                    
+<p>通过模块化，可以提高我们的代码复用率，减少代码修改的时间成本。</p>
+
+<p>Astro中，模块默认存放在 <code>root/components</code> 目录（支持多级目录哦），模块资源名称必须和模块名称相同。如：</p>
+
+<div><pre><code class="language-none">root[dir]
+    components[dir]
+        header-menu[dir]
+            header-menu.html [必选]
+            header-menu.less [可选]
+            header-menu.js [可选]
+            img[dir][可选]
+                logo.png</code></pre></div>
+
+<p>在模块和页面中，可通过<code>&lt;module:modName&gt;&lt;/module&gt;</code>引用模块（模块之间也是可以相互引用）。</p>
+
+<h2 id="toc_0">定义模块</h2>
+
+<p>模块的资源包括结构、样式、js脚本及图片资源。以顶部菜单模块<code>header-menu</code>为例：</p>
+
+<div><pre><code class="language-none">root[dir]
+    components[dir]
+        header-menu[dir]
+            header-menu.html [必选]
+            header-menu.less [可选]
+            header-menu.js [可选]
+            img[dir][可选]
+                logo.png</code></pre></div>
+
+<p>root/components/header-menu/header-menu.html：</p>
+
+<div><pre><code class="language-none">&lt;div id=&quot;hd&quot; class=&quot;header&quot;&gt;
+    &lt;div class=&quot;container&quot;&gt;
+        &lt;h1&gt;&lt;a href=&quot;/&quot; title=&quot;Astro&quot;&gt;&lt;/a&gt;&lt;/h1&gt;
+        &lt;ul&gt;
+        &lt;!--...--&gt;        
+        &lt;/ul&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre></div>
+
+<p>root/components/header-menu/header-menu.less：</p>
+
+<div><pre><code class="language-none">.header{
+    h1{
+        a{
+            background:url(logo.png) no-repeat;
+            // 发布后自动替换为 background:url(/img/wc/header-menu/logo.png) no-repeat;
+        }
+    }
+}</code></pre></div>
+
+<p>root/components/header-menu/header-menu.js：</p>
+
+<div><pre><code class="language-none">    $(function(){
+        var URL_LOGO= ./img/p/doc-mod/&#39;logo.png&#39;);
+        // 发布后自动替换为 URL_LOGO = &#39;/img/wc/header-menu/logo.png&#39;;
+        $(&#39;.header&#39;).delegate(&#39;li&#39;, &#39;click&#39;, function(){
+            ....
+        });
+    };</code></pre></div>
+
+<h2 id="toc_1">引用模块</h2>
+
+<h3 id="toc_2">模块之间的引用</h3>
+
+<p>Astro支持模块之间的相互引用，基于此可以实现模块的高粒度抽象，使模块之间充分解耦。以通用页面模板<code>layout/normal</code>为例：</p>
+
+<div><pre><code class="language-none">    root[dir]
+        components[dir]
+            layout[dir]
+                normal[dir]
+                    normal.html [必选]
+                    normal.less [可选]
+                    normal.js [可选]
+                ..
+</code></pre></div>
+
+<p>root/components/layout/normal.html：</p>
+
+<div><pre><code class="language-none">    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+        &lt;head&gt;
+            &lt;title&gt;模块化-Astro&lt;/title&gt;
+            &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot; /&gt;
+            &lt;link rel=&quot;stylesheet&quot; href=&quot;./css/p/doc-mod.css?v=&quot;/&gt;
+        &lt;/head&gt;
+        &lt;body&gt;
+            &lt;div id=&quot;astro-wrap&quot; class=&quot;g-main&quot;&gt;
+                &lt;module:header-menu /&gt;
+                &lt;div id=&quot;bd&quot; class=&quot;g-wrap&quot;&gt;
+                    &lt;div id=&quot;bd-inner&quot;&gt;
+                        &lt;point:content/&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                &lt;module:footer /&gt;            
+            &lt;/div&gt;
+    &lt;/html&gt;</code></pre></div>
+
+<p><code>layout/normal</code>模块中引用了<code>header-menu</code>和<code>footer</code>模块，中间是每个页面自定义的部分，使用<code>point</code>标签定义了插入点<code>content</code>，在使用模板时，可同通过<code>def</code>定义木块的内容。如：</p>
+
+<p>root/tpls/home.html：</p>
+
+<div><pre><code class="language-none">&lt;module:layout/normal&gt;
+    &lt;def:content&gt;
+        hello home
+    &lt;/def&gt;
+&lt;/module&gt;</code></pre></div>
+
+<p>通过定义通用页面模块，完成一个页面就是这么简单。例中只定义了一个插入点，事实上模块是可以通过<code>point</code>标签定义多个插入点的。</p>
+
+<p>小技巧：如果页面中只有一个插入点，是可以省略<code>def</code>标签的，就是说，本例中，<code>home.html</code>这样写也是阔以的：</p>
+
+<div><pre><code class="language-none">&lt;module:layout/normal&gt;
+    hello home
+&lt;/module&gt;</code></pre></div>
+
+<p><code>home.html</code>解析后最终内容如下：</p>
+
+<div><pre><code class="language-none">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;!-- title字段需要在路由中设置 --&gt;
+        &lt;title&gt;标题-Astro&lt;/title&gt;
+        &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot; /&gt;
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;http://127.0.0.1:3101/css/p/home.css&quot;/&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;div id=&quot;astro-wrap&quot; class=&quot;g-main&quot;&gt;
+              &lt;!--header-menu--&gt;
+            &lt;div id=&quot;hd&quot; class=&quot;header&quot;&gt;
+                &lt;div class=&quot;container&quot;&gt;
+                    &lt;h1&gt;&lt;a href=&quot;/&quot; title=&quot;Astro&quot;&gt;&lt;/a&gt;&lt;/h1&gt;
+                    &lt;ul&gt;
+                    &lt;!--...--&gt;        
+                    &lt;/ul&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;!--header-menu--&gt;
+            &lt;div id=&quot;bd&quot; class=&quot;g-wrap&quot;&gt;
+                &lt;div id=&quot;bd-inner&quot;&gt;
+                    hello home
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div id=&quot;ft&quot; class=&quot;footer&quot;&gt;
+                &lt;!--...--&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+&lt;/html&gt;</code></pre></div>
+
+                </div>
+            </section>
+            <!-- <script src="./js/prettify.js"></script> -->
+        </div>
+    </body>
+</html>

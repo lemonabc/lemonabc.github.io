@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>如何开始-Astros文档</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" href="./css/p/doc-start.css?v="/>
+        <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon" />
+        <!-- <link rel="stylesheet" href="./css/prettify-tomorrow.css"> -->
+    </head>
+    <body>
+    	<div id="astro-wrap" class="g-main">
+			<div class="header">
+    <div class="section">
+        <h1 class="logo"></h1>
+        <ul class="nav">
+            <li><a class="" href="/">首页</a></li>
+            <li><a class="active" href="/doc/start">文档</a></li>
+            <li><a class="" href="#">中间件列表</a></li>
+            <li><a href="https://github.com/lemonabc/astros/issues">问题</a></li>
+        </ul>
+    </div>
+</div>
+            <section class="section">
+                <!-- 文档左侧菜单 -->
+<div class="side-menu doc-menu">
+    <dl>
+        <dt><a class="on"  href="start">快速开始</a></dt>
+    </dl>
+    <dl>
+        <dt>使用指南</dt>
+        <dd>
+            <a class="" href="page">创建页面</a></dd>
+        <dd>
+            <a class="" href="mod">模块化</a></dd>
+        <dd>
+            <a class="" href="res-ref">资源引用</a>
+        </dd>
+        <dd>
+            <a class="" href="image">图片处理</a>
+        </dd>
+        <dd>
+            <a class="" href="font">SVG转字体</a>
+        </dd>
+    </dl>
+    <dl>
+        <dt>开发文档</dt>
+        <dd>
+            <a class="" href="astros">Astros对象</a>
+        </dd>
+        <dd>
+            <a class="" href="asset">Asset对象</a>
+        </dd>
+        <dd>
+        <a class="" href="middleware">开发中间件</a>
+        </dd>
+        <dd>
+            <a class="" href="release">发布</a>
+        </dd>        
+    </dl>
+</div>
+                <div class="doc-wrap">
+                    
+<p>Astros是一个前端集成开发环境，旨在通过工具自动化完成大部分非思考性的工作，如JS合并、脚本压缩、图片优化、合成雪碧图和字体文件等，让程序员更能享受编程本身。</p>
+
+<p>Astros的核心，是做为一个前端静态资源服务器，每次请求，都是实时处理并返回。在Astros中，任何资源，如js、css、图片、字体、视频等都是一个<code>Asset</code>，收到请求后，依次调用可用的<code>中间件</code>完成对Asset的解析、依赖分析、优化等操作，最后返回处理结果。</p>
+
+<p>通过Astros目前提供的中间件，已能完成如下功能：</p>
+
+<ul>
+<li>自动合并雪碧图</li>
+<li>根据SVG，自动合成字体文件</li>
+<li>二倍图转一倍图（只需要切2倍图，自动生成1倍图）</li>
+<li>自动对图片进行无损压缩，并附加交错属性</li>
+<li>解析LESS，自动完善样式HACK（如为<code>border-radius</code>添加<code>-wekit-</code>等前缀）</li>
+<li>CSS和JS压缩</li>
+<li>支持在浏览器端使用CMD模式</li>
+<li>HTML自动转JS模板（正常书写HTML，JS中作为变量引用，不必在JS中拼接字符串）</li>
+<li>静态资源发布时，支持文件名MD5</li>
+<li><del>livereload</del> 开发中</li>
+</ul>
+
+<h2 id="toc_0">安装</h2>
+
+<h3 id="toc_1">安装astros-cli</h3>
+
+<p>创建项目时，你不必手动创建目录结构，挨个安装nodejs依赖，<code>astros-cli</code>能帮你完成这些工作。</p>
+
+<div><pre><code class="language-bash">npm install -g astros-cli</code></pre></div>
+
+<h3 id="toc_2">创建项目</h3>
+
+<div><pre><code class="language-bash">astros create ~/astros-example</code></pre></div>
+
+<p>或者直接从 github 获取</p>
+
+<div><pre><code class="language-bash">git clone git@github.com:lemonabc/astros-example.git
+cd astros-example
+npm install
+npm start</code></pre></div>
+
+<p>默认端口号是Web服务器端口号是3301，静态资源服务端口号是 3300</p>
+
+<h2 id="toc_3">工作目录</h2>
+
+<pre>
+root[dir] 站点根目录
+    __cache[dir] 缓存目录
+    assets[dir] 资源目录
+        img[dir] 公共图片资源
+        js[dir]公共JS资源
+        jslib[dir] JS组件
+            dialog[dir] 对话框组件，目录名称、文件名称必须和组件名称一致
+                img[dir]该组件用到的图片
+                dialog.js
+                dialog.less
+        less[dir]样式库
+    components[dir] Web组件 *支持多级目录*
+        header[dir] 通用头
+            header.html
+            header.js
+            header.less
+            img[dir]
+    config[dir] 站点配置目录
+        static.js   静态资源服务器配置
+        site.js    站点配置。
+    routes[dir] 路由 *支持多级目录*
+    pages[dir] 页面模板 *支持多级目录*
+    sh[dir]
+</pre>
+
+<h2 id="toc_4">配置文件</h2>
+
+<h3 id="toc_5">static.js</h3>
+
+<pre>
+// 静态资源服务器配置
+module.exports = {
+    //......
+}
+</pre>
+
+<blockquote>
+<p>发布时，会读取static-build.js，可在发布时才引用图片压缩、JS压缩等中间件。</p>
+</blockquote>
+
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>类型</th>
+<th>默认值</th>
+<th>描述</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>name</td>
+<td>String</td>
+<td>default</td>
+<td>项目名称</td>
+</tr>
+<tr>
+<td>port</td>
+<td>Number</td>
+<td>3104</td>
+<td>静态资源服务器端口号</td>
+</tr>
+<tr>
+<td>root</td>
+<td>String</td>
+<td></td>
+<td>项目根目录</td>
+</tr>
+<tr>
+<td>jsExt</td>
+<td>String</td>
+<td>js</td>
+<td>JS文件后缀名</td>
+</tr>
+<tr>
+<td>cssExt</td>
+<td>String</td>
+<td>less</td>
+<td>样式文件后缀名</td>
+</tr>
+<tr>
+<td>htmlExt</td>
+<td>String</td>
+<td>html</td>
+<td>html文件后缀名</td>
+</tr>
+<tr>
+<td>assets</td>
+<td>String</td>
+<td>site/assets</td>
+<td>静态资源目录</td>
+</tr>
+<tr>
+<td>webCom</td>
+<td>String</td>
+<td>site/components</td>
+<td>web组件目录</td>
+</tr>
+<tr>
+<td>jsCom</td>
+<td>String</td>
+<td>site/assets/less</td>
+<td>js组件目录</td>
+</tr>
+<tr>
+<td>cssLib</td>
+<td>String</td>
+<td>site/assets/less</td>
+<td>公共样式类库目录</td>
+</tr>
+<tr>
+<td>page</td>
+<td>String</td>
+<td>root/page</td>
+<td>页面存储路径</td>
+</tr>
+<tr>
+<td>cache</td>
+<td>String</td>
+<td>root/_cache</td>
+<td>缓存目录</td>
+</tr>
+<tr>
+<td>release</td>
+<td>String</td>
+<td>root/_cache/release</td>
+<td>发布目录</td>
+</tr>
+<tr>
+<td>img</td>
+<td>String</td>
+<td>root/assets/img</td>
+<td>图片存放目录</td>
+</tr>
+<tr>
+<td>imgCache</td>
+<td>String</td>
+<td>root/_cache/imgcache</td>
+<td>图片处理缓存目录</td>
+</tr>
+<tr>
+<td><strong>ignore</strong></td>
+<td>Array</td>
+<td>[&#39;jslib&#39;, &#39;less&#39;</td>
+<td>发布时要忽略的assets下的目录</td>
+</tr>
+<tr>
+<td>middlewares</td>
+<td>Array</td>
+<td></td>
+<td>项目加载的中间件</td>
+</tr>
+<tr>
+<td>cdnPrefix</td>
+<td></td>
+<td></td>
+<td>资源路径修饰符</td>
+</tr>
+</tbody>
+</table>
+
+<h3 id="toc_6">site.js</h3>
+
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>类型</th>
+<th>默认值</th>
+<th>描述</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>port</td>
+<td>String</td>
+<td>3100</td>
+<td>web服务器端口号</td>
+</tr>
+<tr>
+<td>root</td>
+<td>String</td>
+<td></td>
+<td>项目根目录</td>
+</tr>
+<tr>
+<td>page</td>
+<td>String</td>
+<td>root/page</td>
+<td>页面存储路径</td>
+</tr>
+<tr>
+<td>autoAssets</td>
+<td>Boolean</td>
+<td>false</td>
+<td>支持自动引用页面CSS和JS</td>
+</tr>
+<tr>
+<td>globalVariable</td>
+<td>Object</td>
+<td></td>
+<td>全局参数</td>
+</tr>
+</tbody>
+</table>
+
+<pre>
+    // 站点端口号
+    port: 3100,
+    // 站点根目录
+    root: require('path').join(__dirname, '..'),
+    // 页面存储路径
+    page: require('path').join(__dirname, '..', 'pages'),
+    // 是否自动启用静态资源服务器
+    // autoAssets: false,
+    // 模板全局属性，在套页面时，用$.g.name访问
+    // 通常用于设置版本号、图片服务器等全局参数
+    : {
+        assets: 'http://10.8.8.43:81/assets'
+    }
+</pre>
+
+<blockquote>
+<p>发布时，会读取site-build.js</p>
+</blockquote>
+
+<h2 id="toc_7">发布</h2>
+
+<p>在项目根目录下，执行</p>
+
+<div><pre><code class="language-bash">astros build</code></pre></div>
+
+<p>或者</p>
+
+<div><pre><code class="language-bash">astros build 项目目录</code></pre></div>
+
+<p>你可以增加 <code>--html</code> 参数，发布解析后的HTML</p>
+
+                </div>
+            </section>
+            <!-- <script src="./js/prettify.js"></script> -->
+        </div>
+    </body>
+</html>

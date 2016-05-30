@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>发布-Astros文档</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" href="./css/p/doc-start.css?v="/>
+        <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon" />
+        <!-- <link rel="stylesheet" href="./css/prettify-tomorrow.css"> -->
+    </head>
+    <body>
+    	<div id="astro-wrap" class="g-main">
+			<div class="header">
+    <div class="section">
+        <h1 class="logo"></h1>
+        <ul class="nav">
+            <li><a class="" href="/">首页</a></li>
+            <li><a class="active" href="/doc/start">文档</a></li>
+            <li><a class="" href="#">中间件列表</a></li>
+            <li><a href="https://github.com/lemonabc/astros/issues">问题</a></li>
+        </ul>
+    </div>
+</div>
+            <section class="section">
+                <!-- 文档左侧菜单 -->
+<div class="side-menu doc-menu">
+    <dl>
+        <dt><a class=""  href="start">快速开始</a></dt>
+    </dl>
+    <dl>
+        <dt>使用指南</dt>
+        <dd>
+            <a class="" href="page">创建页面</a></dd>
+        <dd>
+            <a class="" href="mod">模块化</a></dd>
+        <dd>
+            <a class="" href="res-ref">资源引用</a>
+        </dd>
+        <dd>
+            <a class="" href="image">图片处理</a>
+        </dd>
+        <dd>
+            <a class="" href="font">SVG转字体</a>
+        </dd>
+    </dl>
+    <dl>
+        <dt>开发文档</dt>
+        <dd>
+            <a class="" href="astros">Astros对象</a>
+        </dd>
+        <dd>
+            <a class="" href="asset">Asset对象</a>
+        </dd>
+        <dd>
+        <a class="" href="middleware">开发中间件</a>
+        </dd>
+        <dd>
+            <a class="on" href="release">发布</a>
+        </dd>        
+    </dl>
+</div>
+                <div class="doc-wrap">
+                    
+<h2 id="toc_0">发布</h2>
+
+<p>astros中，发布通过命令完成</p>
+
+<div><pre><code class="language-none">astros build</code></pre></div>
+
+<p>你可以在<code>root/config/static-build.js</code>对发布进行设置，如挂载针对发布的插件、开启资源md5命名、开启交错属性等。</p>
+
+<p><code>build</code>命令可以接收参数，以下示例中，两个语句效果一样</p>
+
+<p>站点根目录是<code>~/projects/prjname</code></p>
+
+<p>示例1</p>
+
+<div><pre><code class="language-none">$ cd ~/projects/prjname
+$ astros build</code></pre></div>
+
+<p>示例2</p>
+
+<div><pre><code class="language-none">$ astros build ~/projects/prjname</code></pre></div>
+
+<p>默认发布路径是<code>root/_cache/release</code>。</p>
+
+<h3 id="toc_1">自定义发布</h3>
+
+<p>如果想自定义发布过程，或者发布后需要打包、上传到测试服务器等，可以通过在根目录下创建 sh/build.js 来自定义项目的发布行为。在执行 <code>astros build</code>命令时，cli会检查<code>sh/build.js</code>是否存在，存在则终止默认发布进程并执行它。</p>
+
+<p>示例</p>
+
+<div><pre><code class="language-none">#!/usr/bin/env node
+// 读取站点配置
+var cfg =  require(&#39;../config/static-build.js&#39;)
+cfg.root = sitePath;
+cfg.name = cfg.name || &#39;default&#39;;
+var b = new require(&#39;astros&#39;).builder(cfg);
+
+b.build(function(prjCfg){
+    // do something
+    // 指定打包、同步到测试环境等
+});</code></pre></div>
+
+                </div>
+            </section>
+            <!-- <script src="./js/prettify.js"></script> -->
+        </div>
+    </body>
+</html>

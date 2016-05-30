@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>图片处理-Astros文档</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" href="./css/p/doc-start.css?v="/>
+        <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon" />
+        <!-- <link rel="stylesheet" href="./css/prettify-tomorrow.css"> -->
+    </head>
+    <body>
+    	<div id="astro-wrap" class="g-main">
+			<div class="header">
+    <div class="section">
+        <h1 class="logo"></h1>
+        <ul class="nav">
+            <li><a class="" href="/">首页</a></li>
+            <li><a class="active" href="/doc/start">文档</a></li>
+            <li><a class="" href="#">中间件列表</a></li>
+            <li><a href="https://github.com/lemonabc/astros/issues">问题</a></li>
+        </ul>
+    </div>
+</div>
+            <section class="section">
+                <!-- 文档左侧菜单 -->
+<div class="side-menu doc-menu">
+    <dl>
+        <dt><a class=""  href="start">快速开始</a></dt>
+    </dl>
+    <dl>
+        <dt>使用指南</dt>
+        <dd>
+            <a class="" href="page">创建页面</a></dd>
+        <dd>
+            <a class="" href="mod">模块化</a></dd>
+        <dd>
+            <a class="" href="res-ref">资源引用</a>
+        </dd>
+        <dd>
+            <a class="on" href="image">图片处理</a>
+        </dd>
+        <dd>
+            <a class="" href="font">SVG转字体</a>
+        </dd>
+    </dl>
+    <dl>
+        <dt>开发文档</dt>
+        <dd>
+            <a class="" href="astros">Astros对象</a>
+        </dd>
+        <dd>
+            <a class="" href="asset">Asset对象</a>
+        </dd>
+        <dd>
+        <a class="" href="middleware">开发中间件</a>
+        </dd>
+        <dd>
+            <a class="" href="release">发布</a>
+        </dd>        
+    </dl>
+</div>
+                <div class="doc-wrap">
+                    
+<p>Astros默认加载了一些能提高图片处理效率的实用中间件。</p>
+
+<h2 id="toc_0">二倍图处理</h2>
+
+<p>该功能通过中间件 <code>astros-2ximg</code> 实现</p>
+
+<p>项目中如果需要针对高清屏设置二倍图时，通常的做法是切两个尺寸的图片。而在Astro中，你只需要准备好一张二倍图。存储图片时，文件名以<code>2x</code>结尾，按需引用一倍图和2倍图即可，例：</p>
+
+<p><strong>图片位置：</strong></p>
+
+<div><pre><code class="language-none">root/img/logo2x.png</code></pre></div>
+
+<p><strong>如何引用：</strong></p>
+
+<p>root/pages/user/login/login.html：</p>
+
+<div><pre><code class="language-none">&lt;img src=&quot;./img/logo.png&quot;) srcset=&quot;$res(~/img/logo2x.png 2x&quot; /&gt;</code></pre></div>
+
+<p>root/components/header/header-menu.html：</p>
+
+<div><pre><code class="language-none">&lt;img src=&quot;./img/logo.png&quot;) srcset=&quot;$res(~/img/logo2x.png 2x&quot; /&gt;</code></pre></div>
+
+<p>root/components/header/header-menu.less：</p>
+
+<div><pre><code class="language-none">background:url(~/img/logo.png);
+background:url(~/img/logo2x.png);</code></pre></div>
+
+<p>你没有看错，除了文件名末尾加<code>2x</code>，不需要其他额外的操作。</p>
+
+<h2 id="toc_1">雪碧图</h2>
+
+<p>该功能通过中间件 <code>astros-css-sprite</code> 实现</p>
+
+<p>也许你曾经为拼接雪碧图、手动量坐标发愁，后来找到了自动合并图片的方案，你发现还要手动更新样式，Astros一直在尝试让这些琐碎、无意义的工作变得简单，Astros中，你只需要按规则存放图片，正常引用，Astros会在发布时自动合成雪碧图并替换图片引用。</p>
+
+<p>图片存放在图片目录的<code>sprite</code>目录下，按类别存放</p>
+
+<p><strong>图片存放</strong></p>
+
+<div><pre><code class="language-none">root/assets/img/sprite/button
+                    home.png
+                    back.png
+                    user.png
+root/assets/img/sprite/form
+                    del.png</code></pre></div>
+
+<p><strong>引用</strong></p>
+
+<p>root/components/header/header-menu.less：</p>
+
+<div><pre><code class="language-none">/*没错，正常引用，没有特殊的有要求*/
+background:url(~/img/sprite/button/home.png);</code></pre></div>
+
+<p><strong>发布后</strong></p>
+
+<p>发布后，图片引用会被自动替换成对雪碧图。</p>
+
+<div><pre><code class="language-none">background:url(~/img/sprite_button.png) no-repeat 0 0;</code></pre></div>
+
+<h2 id="toc_2">图片压缩及交错属性</h2>
+
+<p>该功能通过中间件 <code>astros-img-interlace</code> 实现</p>
+
+<p>网站发布时，Astros不仅支持CSS和JS文件压缩，同时支持对图片的无损压缩，并自动增加交错属性。</p>
+
+<h5 id="toc_3">注意：该功能默认是关闭的，因为它依赖<a href="http://www.graphicsmagick.org/">graphicsmagick</a>组件，开启之前，请安装它。</h5>
+
+<p>Windows中，<a href="ftp://ftp.graphicsmagick.org/pub/GraphicsMagick/windows/">下载安装文件</a>，双击即可完成安装。</p>
+
+<p>Mac可通过<a href="http://mxcl.github.io/homebrew/">brew</a>安装</p>
+
+<div><pre><code class="language-none">brew install imagemagick
+brew install graphicsmagick</code></pre></div>
+
+<p>更多下载地址：<a href="http://www.graphicsmagick.org/download.html#download-sites">http://www.graphicsmagick.org/download.html</a></p>
+
+                </div>
+            </section>
+            <!-- <script src="./js/prettify.js"></script> -->
+        </div>
+    </body>
+</html>

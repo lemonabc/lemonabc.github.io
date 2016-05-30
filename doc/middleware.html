@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>中间件开发-Astros文档</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" href="./css/p/doc-start.css?v="/>
+        <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon" />
+        <!-- <link rel="stylesheet" href="./css/prettify-tomorrow.css"> -->
+    </head>
+    <body>
+    	<div id="astro-wrap" class="g-main">
+			<div class="header">
+    <div class="section">
+        <h1 class="logo"></h1>
+        <ul class="nav">
+            <li><a class="" href="/">首页</a></li>
+            <li><a class="active" href="/doc/start">文档</a></li>
+            <li><a class="" href="#">中间件列表</a></li>
+            <li><a href="https://github.com/lemonabc/astros/issues">问题</a></li>
+        </ul>
+    </div>
+</div>
+            <section class="section">
+                <!-- 文档左侧菜单 -->
+<div class="side-menu doc-menu">
+    <dl>
+        <dt><a class=""  href="start">快速开始</a></dt>
+    </dl>
+    <dl>
+        <dt>使用指南</dt>
+        <dd>
+            <a class="" href="page">创建页面</a></dd>
+        <dd>
+            <a class="" href="mod">模块化</a></dd>
+        <dd>
+            <a class="" href="res-ref">资源引用</a>
+        </dd>
+        <dd>
+            <a class="" href="image">图片处理</a>
+        </dd>
+        <dd>
+            <a class="" href="font">SVG转字体</a>
+        </dd>
+    </dl>
+    <dl>
+        <dt>开发文档</dt>
+        <dd>
+            <a class="" href="astros">Astros对象</a>
+        </dd>
+        <dd>
+            <a class="" href="asset">Asset对象</a>
+        </dd>
+        <dd>
+        <a class="on" href="middleware">开发中间件</a>
+        </dd>
+        <dd>
+            <a class="" href="release">发布</a>
+        </dd>        
+    </dl>
+</div>
+                <div class="doc-wrap">
+                    
+<p>在Astros中，通过基类astro.Middleware就能快速创建一个中间件。</p>
+
+<div><pre><code class="language-none">new astro.MiddleWare([filter], function(asset, next){
+
+});</code></pre></div>
+
+<p><code>Middleware</code>的构造函数有两个参数: filter，callback</p>
+
+<h4 id="toc_0">filter</h4>
+
+<p>中间件适用的资源类型，</p>
+
+<p>选填，默认是所有中间件</p>
+
+<p>filter以键值对的形式配置，key为asset的属性名称，value为asset的属性值的范围，如只适用于js文件</p>
+
+<div><pre><code class="language-none">{
+    fileType: &#39;js&#39;
+}</code></pre></div>
+
+<p>适用于处理页面的JS</p>
+
+<div><pre><code class="language-none">{
+    fileType: &#39;js&#39;,
+    modType : &#39;page&#39;
+}</code></pre></div>
+
+<p>适用于处理页面和web模块的JS</p>
+
+<div><pre><code class="language-none">{
+    fileType: &#39;js&#39;,
+    modType : [&#39;page&#39;, &#39;webCom&#39;]
+}</code></pre></div>
+
+<blockquote>
+<p>在项目中引用中间件时，可以动态指定</p>
+</blockquote>
+
+<h4 id="toc_1">handle</h4>
+
+<p>处理asset的函数，有两个参数，<code>asset</code>和 <code>next</code>，<code>asset</code> 指向待处理的资源，在完成处理后，调用 <code>next(asset)</code> 执行下一个中间件。</p>
+
+<p>以根据二倍图自动成圣一倍图为例</p>
+
+<div><pre><code class="language-none">&#39;use strict&#39;;
+
+var path = require(&#39;path&#39;),
+    img = require(&#39;image-magic&#39;).size;
+
+/**
+ * Astro中间件
+ * 
+ * 当访问以&quot;2x&quot;结束的图片（如abc.jpg）时，
+ * 如存在abc2x.jpg，则按原图1/2尺寸存储为abc.jpg，并返回
+ */
+
+module.exports = new astro.Middleware({
+    fileType: &#39;img&#39;
+}, function(asset, next) {
+    // 如果是发布状态，则自动发布一倍图
+    if (asset.status == &#39;release&#39; &amp;&amp;
+        (/2x$/i).test(path.basename(asset.path, asset.extname))) {
+
+        let half = asset.clone();
+
+        half.path = asset.filePath.replace(/2x(\..*?)$/i, function(a, b) {
+            return b
+        });
+        half.name = asset.name.replace(/2x(\..*?)$/i, function(a, b) {
+            return b
+        });
+        img.createImgFrom2xWithCacheSync(half.path,
+            path.join(asset.prjCfg.imgCache, &#39;img2x.json&#39;));
+
+        // half.debug = 1;
+        half.release(function() {
+            next(asset);
+        });
+        return;
+    }
+    // 访问 abc.jpg，如存在abc2x.jpg，则返回缩放1/2的abc2x.jpg
+    if (img.createImgFrom2xWithCacheSync(asset.filePath,
+            path.join(asset.prjCfg.imgCache, &#39;img2x.json&#39;))) {
+        asset.data = asset.read();
+    }
+    next(asset);
+});</code></pre></div>
+
+                </div>
+            </section>
+            <!-- <script src="./js/prettify.js"></script> -->
+        </div>
+    </body>
+</html>
