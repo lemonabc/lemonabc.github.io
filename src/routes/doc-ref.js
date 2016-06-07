@@ -1,5 +1,5 @@
 /**
- * @html:doc/doc-ref
+ * @html:doc/res-ref
  */
 var router = require('express').Router(); // 新建一个 router
 router.get('/doc/res-ref', function(req, res) {
