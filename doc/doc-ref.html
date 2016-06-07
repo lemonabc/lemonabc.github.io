@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>资源引用-Astros文档</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" href="../css/p/doc-start.css?v="/>
+        <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
+        <!-- <link rel="stylesheet" href="../css/prettify-tomorrow.css"> -->
+    </head>
+    <body>
+    	<div id="astro-wrap" class="g-main">
+			<div class="header">
+    <div class="section">
+        <h1 class="logo"></h1>
+        <ul class="nav">
+            <li><a class="" href="/">首页</a></li>
+            <li><a class="active" href="/doc/start">文档</a></li>
+            <li><a class="" href="/middlewares">中间件列表</a></li>
+            <li><a href="https://github.com/lemonabc/astros/issues">问题</a></li>
+        </ul>
+    </div>
+</div>
+            <section class="section">
+                <!-- 文档左侧菜单 -->
+<div class="side-menu doc-menu">
+    <dl>
+        <dt><a class=""  href="start">快速开始</a></dt>
+    </dl>
+    <dl>
+        <dt>使用指南</dt>
+        <dd>
+            <a class="" href="page">创建页面</a></dd>
+        <dd>
+            <a class="" href="mod">模块化</a></dd>
+        <dd>
+            <a class="on" href="res-ref">资源引用</a>
+        </dd>
+        <dd>
+            <a class="" href="image">图片处理</a>
+        </dd>
+        <dd>
+            <a class="" href="font">SVG转字体</a>
+        </dd>
+    </dl>
+    <dl>
+        <dt>开发文档</dt>
+        <dd>
+            <a class="" href="astros">Astros对象</a>
+        </dd>
+        <dd>
+            <a class="" href="asset">Asset对象</a>
+        </dd>
+        <dd>
+        <a class="" href="middleware">开发中间件</a>
+        </dd>
+        <dd>
+            <a class="" href="release">发布</a>
+        </dd>        
+    </dl>
+</div>
+                <div class="doc-wrap">
+                    
+<p>Astros中，引用页面的JS和CSS分别通过以下方式引用：</p>
+
+<div><pre><code class="language-none">&lt;script src=&quot;http://127.0.0.1:3101/js/p/home.js&quot;&gt;&lt;/script&gt;
+
+&lt;link rel=&quot;stylesheet&quot; href=&quot;http://127.0.0.1:3101/css/p/home.css&quot; /&gt;</code></pre></div>
+
+<p>当然，这是Astro默认的路径引用规则，你可以通过Astro的插件机制，自定义各种资源的引用路径，<a href="#">查看细节</a>。</p>
+
+<h2 id="toc_0">引用JS</h2>
+
+<p>Astro默认引用页面JS的规则是</p>
+
+<div><pre><code class="language-none">/js/p/name.js</code></pre></div>
+
+<p>其中<code>name</code>对应的是<code>root/pages</code>下的页面名称。本文档中，<code>root</code>均表示项目根目录。</p>
+
+<p>在书写页面和模块JS时，难免会依赖弹窗、表单验证等通用组件，Astro不必写很多script标签，如你在登录页面中依赖了表单验证和对话组件，如下即可：</p>
+
+<div><pre><code class="language-none">//@require form-validate,dialog
+$(function(){
+
+    var dom_form= $(&#39;.login-form&#39;);
+
+    dom_form.form({
+        //......
+    });
+
+});</code></pre></div>
+
+<p>通过 <code>@require</code> 关键字，就可实现JS组件引用，<code>JS组件之间的依赖也是如此</code>，Astro会自动分析并加载依赖项。</p>
+
+<h5 id="toc_1">JS的引用规则如下</h5>
+
+<table>
+<thead>
+<tr>
+<th>JS类型</th>
+<th>引用方式</th>
+<th>示例</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>页面</td>
+<td>js/<strong>p</strong>/页面名称</td>
+<td>js/p/home.js</td>
+</tr>
+<tr>
+<td>JS组件</td>
+<td>js/<strong>jscom</strong>/组件名称</td>
+<td>js/p/dialog.js</td>
+</tr>
+<tr>
+<td>web组件</td>
+<td>js/<strong>webcom</strong>/组件名称</td>
+<td>js/p/footer.js</td>
+</tr>
+<tr>
+<td>共用JS</td>
+<td>js/js文件名称</td>
+<td>js/jquery.js</td>
+</tr>
+</tbody>
+</table>
+
+<p>这里有在Astros中使用AMD模式的示例，请<a href="https://github.com/lemonabc/astros-example/tree/astros-seajs">点击这里</a></p>
+
+<p>除了传统引用方式你也可以通过<a href="https://www.npmjs.com/package/astros-cmd-read">astros-cmd-read</a>、<a href="https://www.npmjs.com/package/astros-cmd-dep">astros-cmd-dep</a>、<a href="https://www.npmjs.com/package/astros-cmd-define">astros-cmd-define</a>组件，使用CMD方式引用组件</p>
+
+<h2 id="toc_2">引用本页面（web模块或js组件）的图片</h2>
+
+<p>该功能通过中间件 <code>astro-resource-refer</code> 实现</p>
+
+<p>html结构、样式、JS中均有可能引用到图片。</p>
+
+<p>在html结构中，可通过&#39;$res&#39;方法本页面（模块、组件）下的图片资源：</p>
+
+<div><pre><code class="language-none">&lt;img src=&quot;./img/p/doc-ref/avatar.png&quot; &gt;</code></pre></div>
+
+<blockquote>
+<p>是的，它相对引用</p>
+</blockquote>
+
+<p><strong>样式中：</strong></p>
+
+<div><pre><code class="language-none">background:url(avatar.png) no-repeat;</code></pre></div>
+
+<p><strong>js中：</strong></p>
+
+<div><pre><code class="language-none">var avatar = ./img/p/doc-ref/&#39;avatar.png&#39;;</code></pre></div>
+
+<h3 id="toc_3">公共图片</h3>
+
+<p>该功能通过中间件 <a href="https://www.npmjs.com/package/astros-resource-refer">astro-resource-refer</a> 实现</p>
+
+<p>除了页面（模块、组件）自有的图片，还有logo，icon等公共图片，这些都需要存放在 root/asset/img目录下，引用时，<code>在URL前面加上 ~/即可</code>。以HTML为例：</p>
+
+<div><pre><code class="language-none">&lt;img src=&quot;./img/avatar.png)&quot; &gt;</code></pre></div>
+
+<p>样式和JS中同理。</p>
+
+<p>以上示例中，引用图片的语法为 $res(&#39;资源路径&#39;, 该语法可通过 <code>astro-resource-refer</code> 的参数 <code>jsImgRefer</code> 来设置。具体设置请<a href="https://www.npmjs.com/package/astros-resource-refer">点击查看</a>。</p>
+
+<h5 id="toc_4">最终图片S的引用规则如下</h5>
+
+<table>
+<thead>
+<tr>
+<th>图片类型</th>
+<th>引用方式</th>
+<th>示例</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>页面</td>
+<td>img/<strong>p</strong>/图片名称</td>
+<td>img/p/home/banner.png</td>
+</tr>
+<tr>
+<td>JS组件</td>
+<td>img/<strong>jscom</strong>/图片名称</td>
+<td>img/p/dialog/close.png</td>
+</tr>
+<tr>
+<td>web组件</td>
+<td>img/<strong>webcom</strong>/图片名称</td>
+<td>img/webcom/footer/line.png</td>
+</tr>
+<tr>
+<td>共用图片</td>
+<td>img/图片文件名称</td>
+<td>img/logo.png</td>
+</tr>
+</tbody>
+</table>
+
+<blockquote>
+<p>JS、CSS以及图片的引用路径（url和资源的对应规则）可通过自定义中间件，替换 <code>astros-asset-parse</code> 来实现</p>
+</blockquote>
+
+<h3 id="toc_5">JS模板</h3>
+
+<p>传统方案中，JS渲染HTML，是通过字符串拼接的形式，JS和HTML代码混合在一起，维护起来很不方便。Astros的中间件 <a href="https://www.npmjs.com/package/astros-js-tpl">astros-js-tpl</a>，提供了另一种解决方案。可以用在JS中引用HTML文件，方便维护和开发。</p>
+
+<p><code>astros-js-tpl</code>会把依赖的JS组件的HTML合并到JS组件的JS之前。</p>
+
+<h4 id="toc_6">中间件配置</h4>
+
+<div><pre><code class="language-none">{
+    name:&#39;astros-js-tpl&#39;,
+    config:{
+            tpl: &quot;$tpl(&#39;{name}.{file}&#39;,&#39;{content}&#39;)&quot;
+    }
+}</code></pre></div>
+
+<blockquote>
+<p>{name}是模板路径，{file}是文件名称，{content}是HTML内容</p>
+</blockquote>
+
+<p><strong>note:</strong></p>
+
+<p>以下示例中，<code>$tpl</code>是全局方法，用于设置和返回模板，以下是一个简单的实现。</p>
+
+<div><pre><code class="language-none">(function(win){
+    var _tpl = {};
+    window.$tpl = function(key, ctx){
+        if(ctx){
+            _tpl[key] = ctx;
+            return;
+        }
+        return _tpl[key];
+        
+    }
+}(window);</code></pre></div>
+
+<p><strong>示例1</strong></p>
+
+<p>HTML路径：root/assets/jslib/dialog/dialog.html</p>
+
+<p>{name} = dialog<br>
+{file} = dialog</p>
+
+<p>引用方式</p>
+
+<div><pre><code class="language-none">console.log($tpl(&#39;dialog.dialog&#39;));</code></pre></div>
+
+<p><strong>示例2</strong></p>
+
+<p>HTML路径：root/assets/jslib/tp/tips.html</p>
+
+<p>{name} = tp<br>
+{file} = tips</p>
+
+<p>引用方式</p>
+
+<div><pre><code class="language-none">console.log($tpl(&#39;tp.tips&#39;));</code></pre></div>
+
+<p><strong>示例2</strong></p>
+
+<p>HTML路径：root/assets/jslib/tp/toast.html</p>
+
+<p>{name} = tp<br>
+{file} = toast</p>
+
+<p>引用方式</p>
+
+<div><pre><code class="language-none">console.log($tpl(&#39;tp.toast&#39;))</code></pre></div>
+
+                </div>
+            </section>
+            <!-- <script src="../js/prettify.js"></script> -->
+        </div>
+    </body>
+</html>

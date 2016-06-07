@@ -1,65 +1,4 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>模块化-Astros文档</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link rel="stylesheet" href="../css/p/doc-start.css?v="/>
-        <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
-        <!-- <link rel="stylesheet" href="../css/prettify-tomorrow.css"> -->
-    </head>
-    <body>
-    	<div id="astro-wrap" class="g-main">
-			<div class="header">
-    <div class="section">
-        <h1 class="logo"></h1>
-        <ul class="nav">
-            <li><a class="" href="/">首页</a></li>
-            <li><a class="active" href="/doc/start">文档</a></li>
-            <li><a class="" href="/middlewares">中间件列表</a></li>
-            <li><a href="https://github.com/lemonabc/astros/issues">问题</a></li>
-        </ul>
-    </div>
-</div>
-            <section class="section">
-                <!-- 文档左侧菜单 -->
-<div class="side-menu doc-menu">
-    <dl>
-        <dt><a class=""  href="start">快速开始</a></dt>
-    </dl>
-    <dl>
-        <dt>使用指南</dt>
-        <dd>
-            <a class="on" href="page">创建页面</a></dd>
-        <dd>
-            <a class="" href="mod">模块化</a></dd>
-        <dd>
-            <a class="" href="res-ref">资源引用</a>
-        </dd>
-        <dd>
-            <a class="" href="image">图片处理</a>
-        </dd>
-        <dd>
-            <a class="" href="font">SVG转字体</a>
-        </dd>
-    </dl>
-    <dl>
-        <dt>开发文档</dt>
-        <dd>
-            <a class="" href="astros">Astros对象</a>
-        </dd>
-        <dd>
-            <a class="" href="asset">Asset对象</a>
-        </dd>
-        <dd>
-        <a class="" href="middleware">开发中间件</a>
-        </dd>
-        <dd>
-            <a class="" href="release">发布</a>
-        </dd>        
-    </dl>
-</div>
-                <div class="doc-wrap">
-                    
+<module:layout/doc>
 <h2 id="toc_0">创建路由</h2>
 
 <p>Astro是基于Express实现的，要访问一个页面，同Express一样，需要建立一个路由。Astro的路由默认存储在<code>routes</code>目录，语法和Express一样，Astro会自动遍历<code>routes</code>目录下的所有文件，并挂载之。以127.0.0.1:3100/user/login为例：</p>
@@ -101,9 +40,9 @@ module.exports = router</code></pre></div>
 <div><pre><code class="language-none">&lt;!DOCTYPE html&gt;
 &lt;html&gt;
     &lt;head&gt;
-        &lt;title&gt;模块化-Astro&lt;/title&gt;
+        &lt;title&gt;{{title}}-Astro&lt;/title&gt;
         &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot; /&gt;
-        &lt;link rel=&quot;stylesheet&quot; href=&quot;./css/p/doc-page.css?v=&quot;/&gt;
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;{{$g.cdn}}/css/p/{{pageName}}.css?v={{$ver}}&quot;/&gt;
     &lt;/head&gt;
     &lt;body&gt;
         &lt;div id=&quot;astro-wrap&quot; class=&quot;g-main&quot;&gt;
@@ -121,7 +60,7 @@ module.exports = router</code></pre></div>
                 &lt;/form&gt;
             &lt;/div&gt;
         &lt;/div&gt;
-        &lt;script src=&quot;./js/p/doc-page.js?v=&quot;&gt;
+        &lt;script src=&quot;{{$g.cdn}}/js/p/{{pageName}}.js?v={{$ver}}&quot;&gt;
 &lt;/html&gt;</code></pre></div>
 
 <p>也许你已经注意到了，引用页面的JS和CSS分别通过：</p>
@@ -132,13 +71,7 @@ module.exports = router</code></pre></div>
 
 <p>引用</p>
 
-<p><code>.</code>默认是访问的IP+静态资源服务器端口，如果通过访问 <code>127.0.0.1:3100/user/login</code>，资源引用路径会使用用127.0.0.1:3101，如果通过访问 <code>192.168.1.2:3100/user/login</code>，资源引用路径会使用用 192.168.1.2:3101</p>
+<p><code>{{$g.cdn}}</code>默认是访问的IP+静态资源服务器端口，如果通过访问 <code>127.0.0.1:3100/user/login</code>，资源引用路径会使用用127.0.0.1:3101，如果通过访问 <code>192.168.1.2:3100/user/login</code>，资源引用路径会使用用 192.168.1.2:3101</p>
 
 <div><pre><code class="language-none">你也可以通过 static.js 的 globalVariables.cdn 手动配置</code></pre></div>
-
-                </div>
-            </section>
-            <!-- <script src="../js/prettify.js"></script> -->
-        </div>
-    </body>
-</html>
+</module>

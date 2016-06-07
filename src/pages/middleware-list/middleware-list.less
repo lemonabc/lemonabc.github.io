@@ -1,0 +1,70 @@
+.header{
+    padding:10px 0;
+    .clearfix();
+    background-color: #000;
+    .logo{
+        float:left;
+        width:96px;
+        height:79px;
+        background:url("~/img/logo.png") no-repeat center top;
+    }
+    .nav{
+        float: right;
+        margin-top:25px;
+        li{
+            display:inline-block;
+            margin:0 28px;
+        }
+        a{
+            color:#fff;
+            display:inline-block;
+        }
+        a:hover,a.active{
+            border-bottom:2px solid #25abf5;
+        }
+    }
+}
+//搜索框
+.search{
+    padding: 20px 0;
+    text-align:center;
+    input{
+        width: 600px;
+        font-size: 24px;
+        line-height: 24px;
+        padding: 10px;
+        border:1px solid #ddd;
+        height: 44px;
+        // border-radius: 5px;
+    }
+    button{
+        height: 44px;
+        background: #ff565f;
+        width: 5em;
+        color: #fff;
+        // border-radius: 5px;
+        margin-left: 10px;
+    }
+}
+
+.mw-list{
+    .item{
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+    .name{
+        font-size: 24px;
+    }
+    .version{
+        display: inline-block;
+        margin-left: 10px;
+        color: #ddd;
+        font-size: 14px;        
+    }
+    .tags{
+        a{
+            margin-left: 10px;
+        }
+    }
+}

@@ -1,259 +1,193 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>合成字体-Astros文档</title>
+        <title>中间件列表</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link rel="stylesheet" href="../css/p/doc-start.css?v="/>
-        <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
-        <!-- <link rel="stylesheet" href="../css/prettify-tomorrow.css"> -->
+        <link rel="stylesheet" href="./css/p/middleware-list.css?v="/>
+        <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon" />
     </head>
     <body>
-    	<div id="astro-wrap" class="g-main">
-			<div class="header">
+        <div id="astro-wrap" class="g-main">
+            
+    <div class="top-wrap">
+        <div class="header">
     <div class="section">
         <h1 class="logo"></h1>
         <ul class="nav">
             <li><a class="" href="/">首页</a></li>
-            <li><a class="active" href="/doc/start">文档</a></li>
-            <li><a class="" href="#">中间件列表</a></li>
+            <li><a class="" href="/doc/start">文档</a></li>
+            <li><a class="active" href="/middlewares">中间件列表</a></li>
             <li><a href="https://github.com/lemonabc/astros/issues">问题</a></li>
         </ul>
     </div>
 </div>
-            <section class="section">
-                <!-- 文档左侧菜单 -->
-<div class="side-menu doc-menu">
-    <dl>
-        <dt><a class=""  href="start">快速开始</a></dt>
-    </dl>
-    <dl>
-        <dt>使用指南</dt>
-        <dd>
-            <a class="" href="page">创建页面</a></dd>
-        <dd>
-            <a class="" href="mod">模块化</a></dd>
-        <dd>
-            <a class="" href="res-ref">资源引用</a>
-        </dd>
-        <dd>
-            <a class="" href="image">图片处理</a>
-        </dd>
-        <dd>
-            <a class="" href="font">SVG转字体</a>
-        </dd>
-    </dl>
-    <dl>
-        <dt>开发文档</dt>
-        <dd>
-            <a class="on" href="astros">Astros对象</a>
-        </dd>
-        <dd>
-            <a class="" href="asset">Asset对象</a>
-        </dd>
-        <dd>
-        <a class="" href="middleware">开发中间件</a>
-        </dd>
-        <dd>
-            <a class="" href="release">发布</a>
-        </dd>        
-    </dl>
-</div>
-                <div class="doc-wrap">
-                    
-<p>全局只有一个astros实例。require之后，可以直接通过astro调用。</p>
-
-<p>astro作为静态资源服务，启动十分简单</p>
-
-<div><pre><code class="language-none">    require(&#39;astros&#39;);
-    // 设置项目目录
-    astro.setProject(__dirname);
-    astro.listen(3104);</code></pre></div>
-
-<h3 id="toc_0">方法</h3>
-
-<h4 id="toc_1">astro.getProject(name)</h4>
-
-<p>读取项目配置</p>
-
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>类型</th>
-<th>描述</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>name</td>
-<td>String</td>
-<td>项目名称</td>
-</tr>
-</tbody>
-</table>
-
-<h4 id="toc_2">astro.setProject(options)</h4>
-
-<p>设置项目配置</p>
-
-<p><strong>options</strong></p>
-
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>类型</th>
-<th>默认值</th>
-<th>描述</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>name</td>
-<td>String</td>
-<td>default</td>
-<td>项目名称</td>
-</tr>
-<tr>
-<td>port</td>
-<td>Number</td>
-<td>3104</td>
-<td>静态资源服务器端口号</td>
-</tr>
-<tr>
-<td>root</td>
-<td>String</td>
-<td></td>
-<td>项目根目录</td>
-</tr>
-<tr>
-<td>jsExt</td>
-<td>String</td>
-<td>js</td>
-<td>JS文件后缀名</td>
-</tr>
-<tr>
-<td>cssExt</td>
-<td>String</td>
-<td>less</td>
-<td>样式文件后缀名</td>
-</tr>
-<tr>
-<td>htmlExt</td>
-<td>String</td>
-<td>html</td>
-<td>html文件后缀名</td>
-</tr>
-<tr>
-<td>assets</td>
-<td>String</td>
-<td>site/assets</td>
-<td>静态资源目录</td>
-</tr>
-<tr>
-<td>webCom</td>
-<td>String</td>
-<td>site/components</td>
-<td>web组件目录</td>
-</tr>
-<tr>
-<td>jsCom</td>
-<td>String</td>
-<td>site/assets/less</td>
-<td>js组件目录</td>
-</tr>
-<tr>
-<td>cssLib</td>
-<td>String</td>
-<td>site/assets/less</td>
-<td>公共样式类库目录</td>
-</tr>
-<tr>
-<td>page</td>
-<td>String</td>
-<td>root/page</td>
-<td>页面存储路径</td>
-</tr>
-<tr>
-<td>cache</td>
-<td>String</td>
-<td>root/_cache</td>
-<td>缓存目录</td>
-</tr>
-<tr>
-<td>release</td>
-<td>String</td>
-<td>root/_cache/release</td>
-<td>发布目录</td>
-</tr>
-<tr>
-<td>img</td>
-<td>String</td>
-<td>root/assets/img</td>
-<td>图片存放目录</td>
-</tr>
-<tr>
-<td>imgCache</td>
-<td>String</td>
-<td>root/_cache/imgcache</td>
-<td>图片处理缓存目录</td>
-</tr>
-</tbody>
-</table>
-
-<h4 id="toc_3">astro.hasProject(name)</h4>
-
-<p>是否存在对应的项目</p>
-
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>类型</th>
-<th>描述</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>name</td>
-<td>String</td>
-<td>项目名称</td>
-</tr>
-</tbody>
-</table>
-
-<h4 id="toc_4">astro.listen([port])</h4>
-
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>类型</th>
-<th>描述</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>port</td>
-<td>Number</td>
-<td>监听端口。不穿则使用项目配置端口号</td>
-</tr>
-</tbody>
-</table>
-
-<h3 id="toc_5">属性</h3>
-
-<h4 id="toc_6">asset.server</h4>
-
-<p>服务类</p>
-
+        
+        <div class="section">
+            <div class="search">
+                <input type="text" /> <button>搜&nbsp;&nbsp;索</button>
+            </div>
+            <div class="mw-list">
+                
+                <div class="item">
+                    <div class="name">
+                        <a href="https://www.npmjs.com/package/astros-asset-parse">astros-asset-parse</a>
+                        <span class="version">v1</span>
+                    </div>
+                    <div class="des">
+                        根据请求路径，解析资源类型
+                    </div>
+                    <div class="tags">
+                        tags:<a href="?tag=astros">astros</a><a href="?tag=映射">映射</a><a href="?tag=解析">解析</a>
+                    </div>
                 </div>
-            </section>
-            <!-- <script src="../js/prettify.js"></script> -->
+                
+                <div class="item">
+                    <div class="name">
+                        <a href="https://www.npmjs.com/package/astros-resource-refer">astros-resource-refer</a>
+                        <span class="version">v1</span>
+                    </div>
+                    <div class="des">
+                         分析依赖资源
+                    </div>
+                    <div class="tags">
+                        tags:<a href="?tag=astros">astros</a><a href="?tag=资源引用">资源引用</a>
+                    </div>
+                </div>
+                
+                <div class="item">
+                    <div class="name">
+                        <a href="https://www.npmjs.com/package/astros-2ximg">astros-2ximg</a>
+                        <span class="version">v1</span>
+                    </div>
+                    <div class="des">
+                        图片
+                    </div>
+                    <div class="tags">
+                        tags:<a href="?tag=astros">astros</a><a href="?tag=图片">图片</a><a href="?tag=二倍图">二倍图</a>
+                    </div>
+                </div>
+                
+                <div class="item">
+                    <div class="name">
+                        <a href="https://www.npmjs.com/package/astros-webcom-refer">astros-webcom-refer</a>
+                        <span class="version">v1</span>
+                    </div>
+                    <div class="des">
+                            
+                    </div>
+                    <div class="tags">
+                        tags:<a href="?tag=astros">astros</a><a href="?tag=web组件">web组件</a>
+                    </div>
+                </div>
+                
+                <div class="item">
+                    <div class="name">
+                        <a href="https://www.npmjs.com/package/astros-cmd-dep">astros-cmd-dep</a>
+                        <span class="version">v1</span>
+                    </div>
+                    <div class="des">
+                         
+                    </div>
+                    <div class="tags">
+                        tags:<a href="?tag=astros">astros</a><a href="?tag=CMD">CMD</a><a href="?tag=同步加载">同步加载</a>
+                    </div>
+                </div>
+                
+                <div class="item">
+                    <div class="name">
+                        <a href="https://www.npmjs.com/package/astros-cmd-read">astros-cmd-read</a>
+                        <span class="version">v1</span>
+                    </div>
+                    <div class="des">
+                         
+                    </div>
+                    <div class="tags">
+                        tags:<a href="?tag=astros">astros</a><a href="?tag=CMD">CMD</a><a href="?tag=同步加载">同步加载</a>
+                    </div>
+                </div>
+                
+                <div class="item">
+                    <div class="name">
+                        <a href="https://www.npmjs.com/package/astros-js-dep">astros-js-dep</a>
+                        <span class="version">v1</span>
+                    </div>
+                    <div class="des">
+                            
+                    </div>
+                    <div class="tags">
+                        tags:<a href="?tag=astros">astros</a><a href="?tag=JS">JS</a><a href="?tag=依赖">依赖</a>
+                    </div>
+                </div>
+                
+                <div class="item">
+                    <div class="name">
+                        <a href="https://www.npmjs.com/package/astros-js-process">astros-js-process</a>
+                        <span class="version">v1</span>
+                    </div>
+                    <div class="des">
+                            
+                    </div>
+                    <div class="tags">
+                        tags:<a href="?tag=astros">astros</a><a href="?tag=JS">JS</a><a href="?tag=合并">合并</a>
+                    </div>
+                </div>
+                
+                <div class="item">
+                    <div class="name">
+                        <a href="https://www.npmjs.com/package/astros-cmd-define">astros-cmd-define</a>
+                        <span class="version">v1</span>
+                    </div>
+                    <div class="des">
+                         
+                    </div>
+                    <div class="tags">
+                        tags:<a href="?tag=astros">astros</a><a href="?tag=CMD">CMD</a><a href="?tag=同步加载">同步加载</a>
+                    </div>
+                </div>
+                
+                <div class="item">
+                    <div class="name">
+                        <a href="https://www.npmjs.com/package/astros-js-minify">astros-js-minify</a>
+                        <span class="version">v1</span>
+                    </div>
+                    <div class="des">
+                         
+                    </div>
+                    <div class="tags">
+                        tags:<a href="?tag=astros">astros</a><a href="?tag=JS">JS</a><a href="?tag=压缩">压缩</a><a href="?tag=混淆">混淆</a>
+                    </div>
+                </div>
+                
+                <div class="item">
+                    <div class="name">
+                        <a href="https://www.npmjs.com/package/astros-css-less2">astros-css-less2</a>
+                        <span class="version">v1</span>
+                    </div>
+                    <div class="des">
+                          
+                    </div>
+                    <div class="tags">
+                        tags:<a href="?tag=astros">astros</a><a href="?tag=样式">样式</a><a href="?tag=LESS">LESS</a>
+                    </div>
+                </div>
+                
+                <div class="item">
+                    <div class="name">
+                        <a href="https://www.npmjs.com/package/astros-css-sprite">astros-css-sprite</a>
+                        <span class="version">v1</span>
+                    </div>
+                    <div class="des">
+                           
+                    </div>
+                    <div class="tags">
+                        tags:<a href="?tag=astros">astros</a><a href="?tag=图片">图片</a><a href="?tag=雪碧图">雪碧图</a>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
         </div>
     </body>
 </html>

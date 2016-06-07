@@ -1,65 +1,4 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>模块化-Astros文档</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link rel="stylesheet" href="../css/p/doc-start.css?v="/>
-        <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
-        <!-- <link rel="stylesheet" href="../css/prettify-tomorrow.css"> -->
-    </head>
-    <body>
-    	<div id="astro-wrap" class="g-main">
-			<div class="header">
-    <div class="section">
-        <h1 class="logo"></h1>
-        <ul class="nav">
-            <li><a class="" href="/">首页</a></li>
-            <li><a class="active" href="/doc/start">文档</a></li>
-            <li><a class="" href="/middlewares">中间件列表</a></li>
-            <li><a href="https://github.com/lemonabc/astros/issues">问题</a></li>
-        </ul>
-    </div>
-</div>
-            <section class="section">
-                <!-- 文档左侧菜单 -->
-<div class="side-menu doc-menu">
-    <dl>
-        <dt><a class=""  href="start">快速开始</a></dt>
-    </dl>
-    <dl>
-        <dt>使用指南</dt>
-        <dd>
-            <a class="" href="page">创建页面</a></dd>
-        <dd>
-            <a class="on" href="mod">模块化</a></dd>
-        <dd>
-            <a class="" href="res-ref">资源引用</a>
-        </dd>
-        <dd>
-            <a class="" href="image">图片处理</a>
-        </dd>
-        <dd>
-            <a class="" href="font">SVG转字体</a>
-        </dd>
-    </dl>
-    <dl>
-        <dt>开发文档</dt>
-        <dd>
-            <a class="" href="astros">Astros对象</a>
-        </dd>
-        <dd>
-            <a class="" href="asset">Asset对象</a>
-        </dd>
-        <dd>
-        <a class="" href="middleware">开发中间件</a>
-        </dd>
-        <dd>
-            <a class="" href="release">发布</a>
-        </dd>        
-    </dl>
-</div>
-                <div class="doc-wrap">
-                    
+<module:layout/doc>
 <p>通过模块化，可以提高我们的代码复用率，减少代码修改的时间成本。</p>
 
 <p>Astro中，模块默认存放在 <code>root/components</code> 目录（支持多级目录哦），模块资源名称必须和模块名称相同。如：</p>
@@ -113,12 +52,12 @@
 <p>root/components/header-menu/header-menu.js：</p>
 
 <div><pre><code class="language-none">    $(function(){
-        var URL_LOGO= ./img/p/doc-mod/&#39;logo.png&#39;);
+        var URL_LOGO= $res(&#39;logo.png&#39;);
         // 发布后自动替换为 URL_LOGO = &#39;/img/wc/header-menu/logo.png&#39;;
         $(&#39;.header&#39;).delegate(&#39;li&#39;, &#39;click&#39;, function(){
             ....
         });
-    };</code></pre></div>
+    });</code></pre></div>
 
 <h2 id="toc_1">引用模块</h2>
 
@@ -141,9 +80,9 @@
 <div><pre><code class="language-none">    &lt;!DOCTYPE html&gt;
     &lt;html&gt;
         &lt;head&gt;
-            &lt;title&gt;模块化-Astro&lt;/title&gt;
+            &lt;title&gt;{{title}}-Astro&lt;/title&gt;
             &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=UTF-8&quot; /&gt;
-            &lt;link rel=&quot;stylesheet&quot; href=&quot;./css/p/doc-mod.css?v=&quot;/&gt;
+            &lt;link rel=&quot;stylesheet&quot; href=&quot;{{$g.cdn}}/css/p/{{pageName}}.css?v={{$ver}}&quot;/&gt;
         &lt;/head&gt;
         &lt;body&gt;
             &lt;div id=&quot;astro-wrap&quot; class=&quot;g-main&quot;&gt;
@@ -207,10 +146,4 @@
             &lt;/div&gt;
         &lt;/div&gt;
 &lt;/html&gt;</code></pre></div>
-
-                </div>
-            </section>
-            <!-- <script src="../js/prettify.js"></script> -->
-        </div>
-    </body>
-</html>
+</module>

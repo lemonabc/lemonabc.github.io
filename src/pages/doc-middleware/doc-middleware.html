@@ -1,65 +1,4 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>中间件开发-Astros文档</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link rel="stylesheet" href="../css/p/doc-start.css?v="/>
-        <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
-        <!-- <link rel="stylesheet" href="../css/prettify-tomorrow.css"> -->
-    </head>
-    <body>
-    	<div id="astro-wrap" class="g-main">
-			<div class="header">
-    <div class="section">
-        <h1 class="logo"></h1>
-        <ul class="nav">
-            <li><a class="" href="/">首页</a></li>
-            <li><a class="active" href="/doc/start">文档</a></li>
-            <li><a class="" href="/middlewares">中间件列表</a></li>
-            <li><a href="https://github.com/lemonabc/astros/issues">问题</a></li>
-        </ul>
-    </div>
-</div>
-            <section class="section">
-                <!-- 文档左侧菜单 -->
-<div class="side-menu doc-menu">
-    <dl>
-        <dt><a class=""  href="start">快速开始</a></dt>
-    </dl>
-    <dl>
-        <dt>使用指南</dt>
-        <dd>
-            <a class="" href="page">创建页面</a></dd>
-        <dd>
-            <a class="" href="mod">模块化</a></dd>
-        <dd>
-            <a class="" href="res-ref">资源引用</a>
-        </dd>
-        <dd>
-            <a class="" href="image">图片处理</a>
-        </dd>
-        <dd>
-            <a class="" href="font">SVG转字体</a>
-        </dd>
-    </dl>
-    <dl>
-        <dt>开发文档</dt>
-        <dd>
-            <a class="" href="astros">Astros对象</a>
-        </dd>
-        <dd>
-            <a class="" href="asset">Asset对象</a>
-        </dd>
-        <dd>
-        <a class="on" href="middleware">开发中间件</a>
-        </dd>
-        <dd>
-            <a class="" href="release">发布</a>
-        </dd>        
-    </dl>
-</div>
-                <div class="doc-wrap">
-                    
+<module:layout/doc>
 <p>在Astros中，通过基类astro.Middleware就能快速创建一个中间件。</p>
 
 <div><pre><code class="language-none">new astro.MiddleWare([filter], function(asset, next){
@@ -147,10 +86,4 @@ module.exports = new astro.Middleware({
     }
     next(asset);
 });</code></pre></div>
-
-                </div>
-            </section>
-            <!-- <script src="../js/prettify.js"></script> -->
-        </div>
-    </body>
-</html>
+</module>

@@ -1,0 +1,42 @@
+<module:layout/doc>
+<h2 id="toc_0">发布</h2>
+
+<p>astros中，发布通过命令完成</p>
+
+<div><pre><code class="language-none">astros build</code></pre></div>
+
+<p>你可以在<code>root/config/static-build.js</code>对发布进行设置，如挂载针对发布的插件、开启资源md5命名、开启交错属性等。</p>
+
+<p><code>build</code>命令可以接收参数，以下示例中，两个语句效果一样</p>
+
+<p>站点根目录是<code>~/projects/prjname</code></p>
+
+<p>示例1</p>
+
+<div><pre><code class="language-none">$ cd ~/projects/prjname
+$ astros build</code></pre></div>
+
+<p>示例2</p>
+
+<div><pre><code class="language-none">$ astros build ~/projects/prjname</code></pre></div>
+
+<p>默认发布路径是<code>root/_cache/release</code>。</p>
+
+<h3 id="toc_1">自定义发布</h3>
+
+<p>如果想自定义发布过程，或者发布后需要打包、上传到测试服务器等，可以通过在根目录下创建 sh/build.js 来自定义项目的发布行为。在执行 <code>astros build</code>命令时，cli会检查<code>sh/build.js</code>是否存在，存在则终止默认发布进程并执行它。</p>
+
+<p>示例</p>
+
+<div><pre><code class="language-none">#!/usr/bin/env node
+// 读取站点配置
+var cfg =  require(&#39;../config/static-build.js&#39;)
+cfg.root = sitePath;
+cfg.name = cfg.name || &#39;default&#39;;
+var b = new require(&#39;astros&#39;).builder(cfg);
+
+b.build(function(prjCfg){
+    // do something
+    // 指定打包、同步到测试环境等
+});</code></pre></div>
+</module>

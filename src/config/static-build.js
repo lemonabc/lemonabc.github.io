@@ -7,7 +7,7 @@ module.exports = {
     // 页面存储路径
     // page: require('path').join(__dirname, '..', 'pages'),
     // 自定发布目录
-    // release: require('path').join(__dirname, '..', 'build'),
+    release: require('path').join(__dirname, '..', '..'),
     // JS文件后缀名，默认为js
     // jsExt:'js',
     // CSS文件后缀名

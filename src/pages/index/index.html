@@ -1,16 +1,7 @@
-<module:layout/doc>
+<module:layout/normal>
     <link rel="stylesheet" href="{{$g.cdn}}/css/prettify-tomorrow.css">
 	<div class="top-wrap">
-		<div class="header section">
-			<h1 class="logo"></h1>
-			<ul class="nav">
-				<li><a href="#" class="active">首页</a></li>
-				<li><a href="#">快速开始</a></li>
-				<li><a href="#">文档</a></li>
-				<li><a href="#">插件</a></li>
-				<li><a href="https://github.com/lemonabc/astros/issues">问题</a></li>
-			</ul>
-		</div>
+		<module:head-menu />
 		<div class="top-inner section">
 			<h2>What's Astros!</h2>
 			<p>Astros是一套简洁、高效的前端集成开发环境。工具能做的事，绝不假你之手，尽情享受变成的乐趣吧！</p>
@@ -20,11 +11,11 @@
 	</div>
 	<div class="section">
 		<ul class="index-map">
-			<li><a href="#"><span><img src="$res(~/img/nav-01.jpg)" alt=""></span>模块化开发</a></li>
-			<li><a href="#"><span><img src="$res(~/img/nav-02.jpg)" alt=""></span>图片处理</a></li>
-			<li><a href="#"><span><img src="$res(~/img/nav-03.jpg)" alt=""></span>资源引用</a></li>
-			<li><a href="#"><span><img src="$res(~/img/nav-04.jpg)" alt=""></span>扩展性</a></li>
-			<li><a href="#"><span><img src="$res(~/img/nav-05.jpg)" alt=""></span>一键发布</a></li>
+			<li><a href="doc/mod"><span><img src="$res(~/img/nav-01.jpg)" alt=""></span>模块化开发</a></li>
+			<li><a href="doc/image"><span><img src="$res(~/img/nav-02.jpg)" alt=""></span>图片处理</a></li>
+			<li><a href="doc/res-ref"><span><img src="$res(~/img/nav-03.jpg)" alt=""></span>资源引用</a></li>
+			<li><a href="doc/middleware"><span><img src="$res(~/img/nav-04.jpg)" alt=""></span>扩展性</a></li>
+			<li><a href="doc/start#toc_7"><span><img src="$res(~/img/nav-05.jpg)" alt=""></span>一键发布</a></li>
 		</ul>
 	</div>
 	<div class="section01">
@@ -59,7 +50,7 @@
 	<div class="section02">
 		<div class="section">
 			<dl class="section-inner">
-				<dt>图片自动处理程序，释放你的宝贵生产力</dt>
+				<dt>图片自动处理程序</dt>
 				<dd><i class="m-icon i-module05"></i><p>切图只需考虑二倍图，Astros会自动生成一倍图</p></dd>
 				<dd><i class="m-icon i-module06"></i><p>自动合成雪碧图，不必再手动拼图、维护ICON坐标</p></dd>
 				<dd><i class="m-icon i-module07"></i><p>开启MD5命名后，图片名称修改后会自动更新，从此和图片、字体版本号说再见</p></dd>
@@ -68,23 +59,12 @@
 			<div class="section-temp">
 				<ul class="code-lst">
 					<li>
-						<pre>
-site/img/sprite/icon/icon1.png
-                     icon2.png
-                     icon3.png
-                            <br>                  
-                        </pre>
+						<code>site/img/sprite/icon/icon1.png<br>icon2.png<br>icon3.png
+                        </code>
 						<p>开发环境</p>
 					</li>
 					<li>
-						<pre>
-site/img/sprite_icon.png                  
-                        </pre>
-						<p>生产环境1[未开启MD5]</p>
-					</li>
-					<li>
-						<code>
-site/img/sprite_icon_aj9jf3j.png
+						<code>site/img/sprite_icon_aj9jf3j.png
                         </code>
 						<p>生产环境2[开启MD5]</p>
 					</li>
@@ -115,21 +95,18 @@ site/img/sprite_icon_aj9jf3j.png
         &lt;a class&#61;"dia-btn btn-&#123;&#123;type&#125;&#125;"&gt;&#123;&#123;txt&#125;&#125;&lt;/a&gt;
     &#123;&#123;/each&#125;&#125;
     &lt;/div&gt;
-&lt;/div&gt;
-                </pre>
+&lt;/div&gt;</pre>
                 <pre class="prettyprint lang-js">
 var ele = document.createElement('div');
 ele.class = 'dialog-box';
 ele.innerHTML = template(res.jspl.dialog)({
     // title...
-})
-//...
-                </pre>
+})</pre>
 			</div>
 			<dl class="section-inner">
 				<dt>简化资源引用</dt>
-				<dd><i class="m-icon i-module09"></i><p>编码时，JS和样式中的图片支持均使用相对路径，书写简单</p></dd>
-				<dd><i class="m-icon i-module10"></i><p>还在用字符串拼接JS模板？NO！Astros里，你可以像维护HTML一样维护JS模板支持base 64资源内嵌</p></dd>
+				<dd><i class="m-icon i-module09"></i><p>JS和样式中的图片支持均使用相对路径</p></dd>
+				<dd><i class="m-icon i-module10"></i><p>Astros里，你可以像维护HTML一样维护JS模板</p></dd>
 				<dd><i class="m-icon i-module11"></i><p>支持base 64资源内嵌</p></dd>
 			</dl>
 		</div>
@@ -141,34 +118,27 @@ ele.innerHTML = template(res.jspl.dialog)({
 				<dd>开发过程中，不仅没有各种维护依赖关系、引用路径的纷扰，发布也可以一键无忧。<br>通过一行命令，就可完成发布、打包，并自动对图片、JS、CSS进行压缩。在Linux中，通过和sh命令结合，可完美实现发布、打包、上线的自动化提测/上线流程。</dd>
 			</dl>
            <div class="terminal">
-                 <p>tick:8.etpay-boss tick$ astros build</p>
-                <p class="info"><span class="info">info</span>&nbsp;加载中间件(release)... </p>
-                <p class="log"><span class="info">log:</span>&nbsp;load astros-asset-parse    success </p>
-                <p class="log"><span class="info">log:</span>&nbsp;load astros-jscom-path     success </p>
-<!--                 <p class="log"><span class="info">log:</span>&nbsp;load astros-resource-refer     success </p>
-                <p class="log"><span class="info">log:</span>&nbsp;load astros-webcom-refer   success </p>
-                <p class="log"><span class="info">log:</span>&nbsp;load astros-2ximg  success </p>
-                <p class="log"><span class="info">log:</span>&nbsp;load astros-img-interlace  success </p>
-                <p class="log"><span class="info">log:</span>&nbsp;load astros-js-process     success </p>
-                <p class="log"><span class="info">log:</span>&nbsp;load astros-cmd-dep    success </p>
-                <p class="log"><span class="info">log:</span>&nbsp;load astros-cmd-read   success </p>
-                <p class="log"><span class="info">log:</span>&nbsp;load astros-js-process     success </p>
-                <p class="log"><span class="info">log:</span>&nbsp;load astros-js-tpl     success </p> -->
-                <p class="log"><span class="info">log:</span>&nbsp;load astros-cmd-define     success </p>
-                <p class="log"><span class="info">log:</span>&nbsp;load astros-js-minify  success </p>
-                <p class="log"><span class="info">log:</span>&nbsp;load astros-css-less   success </p>
-                <p></p>
-                <p class="info"><span class="info">info</span>Welcome Astro!      ******** </p>
-                <p class="log"><span class="info">log:</span>&nbsp;静态资源： 430 ms </p>
-                <p class="warn"><span class="info">warn</span>&nbsp;asset.read: /Users/tick/Documents/2.Projects/8.etpay-boss/app/service/model/model.less is miss  modType:jsCom, name:service/model, fileType:css </p>
-                <p class="info"><span class="info">info</span>
-                正在压缩modType:page, name:index, fileType:js...&nbsp;&nbsp;&nbsp;&nbsp;完成！耗时 1.004s 
-                </p>
-                <p class="log"><span class="info">log:</span>&nbsp;页面资源耗时： 1490 ms </p>
-                <p class="log"><span class="info">log:</span>&nbsp;总耗时： 1920 ms </p>
-                <p class="log"><span class="info">log:</span>&nbsp;发布成功 </p>
+           		<div class="t-title"><img src="$res(~/img/top.png)" alt=""></div>
+           		<div class="t-inner">
+	                <p>tick:8.etpay-boss tick$ astros build</p>
+	                <p class="info"><span class="info">info</span>&nbsp;加载中间件(release)... </p>
+	                <p class="log"><span class="info">log:</span>&nbsp;load astros-asset-parse    success </p>
+	                <p class="log"><span class="info">log:</span>&nbsp;load astros-jscom-path     success </p>
+	                <p class="log"><span class="info">log:</span>&nbsp;load astros-cmd-define     success </p>
+	                <p class="log"><span class="info">log:</span>&nbsp;load astros-js-minify  success </p>
+	                <p class="log"><span class="info">log:</span>&nbsp;load astros-css-less   success </p>
+	                <p></p>
+	                <p class="info"><span class="info">info</span>Welcome Astro!      ******** </p>
+	                <p class="log"><span class="info">log:</span>&nbsp;静态资源： 430 ms </p>
+	                <p class="warn"><span class="info">warn</span>&nbsp;asset.read: /Users/tick/Documents/2.Projects/8.etpay-boss/app/service/model/model.less is miss  modType:jsCom, name:service/model, fileType:css </p>
+	                <p class="info"><span class="info">info</span>
+	                正在压缩modType:page, name:index, fileType:js...&nbsp;&nbsp;&nbsp;&nbsp;完成！耗时 1.004s 
+	                </p>
+	                <p class="log"><span class="info">log:</span>&nbsp;页面资源耗时： 1490 ms </p>
+	                <p class="log"><span class="info">log:</span>&nbsp;总耗时： 1920 ms </p>
+	                <p class="log"><span class="info">log:</span>&nbsp;发布成功 </p>
+	            </div>
             </div>
-			<!-- <img src="$res(~/img/module03.jpg)" alt=""> -->
 		</div>
 	</div>
 	<div class="section05">

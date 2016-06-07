@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{{title}}-Astros文档</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" href="{{$g.cdn_rel || $g.cdn}}/css/p/doc-start.css?v={{$ver}}"/>
+        <link rel="shortcut icon" href="{{$g.cdn_rel || $g.cdn}}/img/favicon.ico" type="image/x-icon" />
+        <!-- <link rel="stylesheet" href="{{$g.cdn_rel}}/css/prettify-tomorrow.css"> -->
+    </head>
+    <body>
+    	<div id="astro-wrap" class="g-main">
+			<module:head-menu />
+            <section class="section">
+                <module:doc-menu />
+                <div class="doc-wrap">
+                    <point:content/>
+                </div>
+            </section>
+            <!-- <script src="{{$g.cdn_rel}}/js/prettify.js"></script> -->
+        </div>
+    </body>
+</html>

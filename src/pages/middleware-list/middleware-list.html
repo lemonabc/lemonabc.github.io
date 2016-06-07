@@ -1,0 +1,27 @@
+<module:layout/normal>
+    <div class="top-wrap">
+        <module:head-menu />
+        
+        <div class="section">
+            <div class="search">
+                <input type="text" /> <button>搜&nbsp;&nbsp;索</button>
+            </div>
+            <div class="mw-list">
+                {{each list as item}}
+                <div class="item">
+                    <div class="name">
+                        <a href="{{item.npm}}">{{item.name}}</a>
+                        <span class="version">v{{item.version}}</span>
+                    </div>
+                    <div class="des">
+                        {{item.des}}
+                    </div>
+                    <div class="tags">
+                        tags:{{each item.tags as tag}}<a href="?tag={{tag}}">{{tag}}</a>{{/each}}
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</module>

@@ -1,65 +1,4 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>合成字体-Astros文档</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link rel="stylesheet" href="../css/p/doc-start.css?v="/>
-        <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon" />
-        <!-- <link rel="stylesheet" href="../css/prettify-tomorrow.css"> -->
-    </head>
-    <body>
-    	<div id="astro-wrap" class="g-main">
-			<div class="header">
-    <div class="section">
-        <h1 class="logo"></h1>
-        <ul class="nav">
-            <li><a class="" href="/">首页</a></li>
-            <li><a class="active" href="/doc/start">文档</a></li>
-            <li><a class="" href="/middlewares">中间件列表</a></li>
-            <li><a href="https://github.com/lemonabc/astros/issues">问题</a></li>
-        </ul>
-    </div>
-</div>
-            <section class="section">
-                <!-- 文档左侧菜单 -->
-<div class="side-menu doc-menu">
-    <dl>
-        <dt><a class=""  href="start">快速开始</a></dt>
-    </dl>
-    <dl>
-        <dt>使用指南</dt>
-        <dd>
-            <a class="" href="page">创建页面</a></dd>
-        <dd>
-            <a class="" href="mod">模块化</a></dd>
-        <dd>
-            <a class="" href="res-ref">资源引用</a>
-        </dd>
-        <dd>
-            <a class="" href="image">图片处理</a>
-        </dd>
-        <dd>
-            <a class="on" href="font">SVG转字体</a>
-        </dd>
-    </dl>
-    <dl>
-        <dt>开发文档</dt>
-        <dd>
-            <a class="" href="astros">Astros对象</a>
-        </dd>
-        <dd>
-            <a class="" href="asset">Asset对象</a>
-        </dd>
-        <dd>
-        <a class="" href="middleware">开发中间件</a>
-        </dd>
-        <dd>
-            <a class="" href="release">发布</a>
-        </dd>        
-    </dl>
-</div>
-                <div class="doc-wrap">
-                    
+<module:layout/doc>
 <p>该功能通过中间件<code>astros-svgfont</code>实现。</p>
 
 <p><code>astros-svgfont</code>会把<code>img/svg</code>目录下的svg图标生成eot,svg,ttf,woff四种字体,并自动生成对应svg名的css代码，插入到通用less之后和对应页面less之前。</p>
@@ -127,10 +66,4 @@
 <h3 id="toc_7">HTML</h3>
 
 <div><pre><code class="language-none">&lt;i class=&quot;m-icon i-loading&quot;&gt;&lt;/i&gt;</code></pre></div>
-
-                </div>
-            </section>
-            <!-- <script src="../js/prettify.js"></script> -->
-        </div>
-    </body>
-</html>
+</module>
