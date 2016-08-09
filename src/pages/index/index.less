@@ -5,20 +5,20 @@ pre,code{
 }
 .top-wrap{
 	width:100%;
-	height:490px;
-	background:url("~/img/header-bg.jpg") no-repeat center top;
+	height:400px;
+	background:#045fbb;
 	background-size:100% 100%;
 	color:#fff;
 }
 input.btn-define-m,a.btn-define-m{
 	margin-top:40px;
 	display:inline-block;
-	background-color: #30aff6;
-	border-radius:20px;
-	padding:10px 40px;
+	border-radius:3px;
+	padding:8px 30px;
 	text-align:center;
 	color:#fff;
 	font-size:16px;
+	border:2px solid #fff;
 }
 input.btn-define-l,a.btn-define-l{
 	margin-top:40px;
@@ -34,229 +34,35 @@ input.btn-define-l,a.btn-define-l{
 	text-align:center;
 	h2{
 		font-size:52px;
-		margin-top: 60px;
 	}
 	p{
-		font-size:14px;
 		margin-top: 30px;
 		span{
 			margin:0 50px;
 		}
 	}
 }
-.index-map{
-	padding:50px 0;
+.intro-lst{
 	.clearfix();
-	li{
+	padding-top:50px;
+	.intro{
+		width:45%;
 		float:left;
-		display:block;
-		width:102px;
-		margin:0 50px;
-		a{
-			display:block;
-			text-align:center;
-			span{
-				display:block;
-				width:102px;
-				height:117px;
-				padding-top:15px;
-				margin-bottom: 10px;
-			}
+		margin-right:10%;
+		margin-bottom:40px;
+		&:nth-child(2n){
+			margin-right:0;
 		}
-	}
-	li:last-child{
-		a{
-			span{
-				padding-top:0;
-			}
+		h2{
+			font-size:24px;
+			color:#3161c5;
+			margin-bottom:20px;
 		}
-	}
-}
-.section01,.section02,.section03,.section04,.section05,.section06{
-	padding:80px 0;
-	.section{
-		#display .box();
-		#display .box-align(center,justify);
-		position: relative;
-		left:50%;
-		.transform(translate(-50%,0));
-		margin:0;
-	}
-}
-.section01{
-	background: url("~/img/section-bg01.jpg") repeat left top;
-}
-.code{
-	width:450px;
-	margin:0 30px;
-	code{
-		display:block;
-		padding:15px;
-		background-color:#fff;
-	}
-}
-body pre.prettyprint{
-    border: none;
-}
-.section-inner{
-	#display .flex(1);
-	color:#fff;
-	width:360px;
-	dt{
-		font-size:24px;
-	}
-	dd{
-		width:100%;
-		font-size:16px;
-		margin-top:20px;
-		.clearfix();
-		#display .box();
-		#display .box-align(center,start);
 		p{
-			#display .flex(1);
-			width:310px;
-			margin-left: 8px;
+			font-size: 16px;
+			color:#606579;
+			line-height:1.8;
+      margin-bottom: 1em;
 		}
 	}
-}
-.section02{
-	.section-inner{
-		color:#4b565c;
-		#display .flex(1);
-		margin-right:40px;
-	}
-	.section-temp{
-		#display .flex(1);
-		width:53%;
-	}
-	.code-lst{
-		width:100%;
-		#display .box();
-		#display .box-align(center,justify);
-		li{
-			#display .flex(1);
-			width:30%;
-			font-size:12px;
-			color:#4b565c; 
-			margin-left:50px;
-            text-align: right;
-			code{
-                height: 75px;
-                width: 255px;
-				background-color:#e7f3fe;
-				display:block;
-				padding:10px;
-			}
-			p{
-				text-align:center;
-                width: 255px;
-				font-size: 14px;
-				color:#313b59;
-                margin-top:10px;
-				margin-right:10px;
-			}
-			&:nth-child(1){
-				margin-left:0;
-			}
-			&:nth-child(1){
-				position:relative;
-				&:after{
-					position: absolute;
-					right:-30px;
-					top:50%;
-					.transform(translate(0,-120%));
-					display:block;
-					width:20px;
-					height:21px;
-					content:url("~/img/jiantou.png");
-				}
-			}
-		}
-	}
-	.img-lst{
-		width:100%;
-		.clearfix();
-		margin-top: 30px;
-		li{
-			float:left;
-			font-size:12px;
-			color:#4b565c; 
-			padding:10px;
-			margin-left:20px;
-			&:first-child{
-				margin-left:0;
-			}
-			p{
-				text-align:center;
-				font-size: 14px;
-				color:#313b59;
-				margin-top:10px;
-			}
-
-		}
-	}
-}
-.section03{
-	background: url("~/img/section-bg02.jpg") repeat left top;
-	.code{
-		margin:0 20px 0 0;
-		width:470px;
-	}
-	.code code:nth-child(2){
-		margin-top:30px;
-	}
-}
-.section04{
-	.section-inner{
-		color:#4b565c;
-		#display .flex(1);
-		margin-right:40px;
-		dd{
-			display:block;
-			width:100%;
-		}
-	}
-}
-.section05{
-	background: url("~/img/section-bg03.jpg") repeat left top;
-	.section-inner {
-		#display .flex(1);
-		margin-left:40px;
-		dd{
-			display:block;
-			width:100%;
-		}
-	}
-}
-.section06{
-	background: url("~/img/section-bg04.jpg") repeat left top;
-	text-align:center;
-}
-
-
-.terminal{
-    display: inline-block;
-    width: 576px;
-    .t-title{
-    	height:22px;
-    	img{
-    		width:100%;
-    	}
-    }
-    .t-inner{
-	    background-color: #181818;
-	    color: #00fd00;
-	    height:200px;
-	    overflow-y: auto;
-	    padding:10px;
-    }
-    .log{
-        color: #828282;
-    }
-    .info{
-        color: #00b900;
-    }
-    .warn{
-        color: #acae05;
-    }
 }

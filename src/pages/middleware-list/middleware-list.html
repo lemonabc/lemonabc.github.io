@@ -4,11 +4,11 @@
         
         <div class="section">
             <div class="search">
-                <input type="text" /> <button>搜&nbsp;&nbsp;索</button>
+                <input type="text" id="key" /> <button>搜&nbsp;&nbsp;索</button>
             </div>
             <div class="mw-list">
                 {{each list as item}}
-                <div class="item">
+                <div class="item" data-name={{item.name}} data-tags="{{item.tags.join(',')}}">
                     <div class="name">
                         <a href="{{item.npm}}">{{item.name}}</a>
                         <span class="version">v{{item.version}}</span>
@@ -24,4 +24,21 @@
             </div>
         </div>
     </div>
+    <script src="//cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>    
+    <script>
+      $(function(){
+        var items = $('.mw-list .item');
+        var domKey = $('#key');
+        domKey.on('keyup', function(){
+          var val = domKey.val().trim();
+          items.each(function(idx, n){
+            var item = $(n),
+                tags = item.attr('data-tags'),
+                name = item.attr('data-name');
+
+            item.toggle(!val || tags.indexOf(val) > -1 || name.indexOf(val) > -1)
+          });
+        })
+      })
+    </script>
 </module>
