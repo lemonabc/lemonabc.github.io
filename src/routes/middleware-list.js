@@ -1,5 +1,5 @@
 /**
- * @html:doc/astros
+ * @html:middlewares
  */
 var router = require('express').Router(); // 新建一个 router
 router.get('/middlewares', function(req, res) {
